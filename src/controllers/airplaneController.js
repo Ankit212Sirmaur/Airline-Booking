@@ -25,9 +25,17 @@ async function CreateAirPlanes(req, res) {
 
 async function getAirpPlane(req, res) {
     try {
-        const response = AirplaneService
+        const response = await AirplaneService.getAirpPlanes();
+        successResponse.data = response
+        return res
+                .status(StatusCodes.OK)
+                .json(successResponse)
     } catch (error) {
-        
+        errorResponse.error = error;
+        return res
+            .status(error.statusCode)
+            .json(errorResponse)
+
     }
 }
 
