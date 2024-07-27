@@ -38,19 +38,16 @@ class CrudRepository {
         return response;
     }
 
-   async update(id, data) {
-    const response = await this.model.update(data, {
-        where: { id: id },
-    });
-    if(!response) {
-        throw new AppError('Not able to Update the airplane', StatusCodes.NOT_FOUND);
+    async update(id, data) {
+        const response = await this.model.update(data, {
+            where: {
+                id: id,
+            },
+        });
+        const updatedAirplane = await this.model.findByPk(id);
+        return updatedAirplane;
+        return response;
     }
-    const updatedAirplane = await this.model.findByPk(id);
-    if (!updatedAirplane) {
-        throw new AppError('Error fetching updated airplane', StatusCodes.INTERNAL_SERVER_ERROR);
-    }
-    return updatedAirplane;
-}
 
 }
 
