@@ -34,7 +34,7 @@ Lets take a look inside the `src` folder
     ```
         PORT=3000
     ```
- - go inside the `src` folder and execute the following command:
+ - go inside the `src` folder and execute the all the [sequelize-cli] following command:
     ```
       npx sequelize init
     ```
@@ -46,3 +46,26 @@ Lets take a look inside the `src` folder
  ```
  npm run dev
  ```
+
+### How to use sequelize-cli ?
+
+  - create a database based on the configuration specified 
+  ```
+      npx sequelize db:create
+      npx sequelize db:migrate
+  ```
+
+
+  - now create a table inside of the that databases
+  ```
+   npx sequelize model:generate --name Airplane --attributes modelNumber:string,capacity:integer
+  ```
+
+  -now to seed all the data for the testing purpose
+  ```
+   npx sequelize seed:generate --name add-airplanes
+   npx sequelize db:seed:all
+   $ npx sequelize db:seed:undo:all
+  ```
+
+  
