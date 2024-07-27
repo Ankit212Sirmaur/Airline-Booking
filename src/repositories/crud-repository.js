@@ -1,4 +1,4 @@
-const AppError = require('../utils/error/index');
+const {AppError} = require('../utils/error/index');
 const { StatusCodes } = require('http-status-codes');
 const { Logger } = require('../config');
 
@@ -19,6 +19,10 @@ class CrudRepository {
 
     async get(data) {
         const response = await this.model.findByPk(data);
+        if(!response){
+            Logger.error('Airplane not found');
+            throw new AppError('Cannot find that airplanes', StatusCodes.NOT_FOUND)
+        }
         return response;
     }
 
@@ -28,6 +32,9 @@ class CrudRepository {
                 id: data,
             },
         });
+        if(!response) {
+            throw new AppError('AirPlane not found', StatusCodes.NOT_FOUND);
+        }
         return response;
     }
 
