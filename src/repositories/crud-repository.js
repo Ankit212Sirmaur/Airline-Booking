@@ -26,10 +26,10 @@ class CrudRepository {
         return response;
     }
 
-    async destroy(data) {
+    async destroy(id) {
         const response = await this.model.destroy({
             where: {
-                id: data,
+                id: id,
             },
         });
         if(!response) {
@@ -38,14 +38,19 @@ class CrudRepository {
         return response;
     }
 
-    async update(data, id) {
-        const response = await this.model.update(data, {
-            where: {
-                id: id,
-            },
-        });
-        return response;
+   async update(id, data) {
+    const response = await this.model.update(data, {
+        where: { id: id },
+    });
+    if(!response) {
+        throw new AppError('Not able to Update the airplane', StatusCodes.NOT_FOUND);
     }
+    const updatedAirplane = await this.model.findByPk(id);
+    if (!updatedAirplane) {
+        throw new AppError('Error fetching updated airplane', StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+    return updatedAirplane;
+}
 
 }
 

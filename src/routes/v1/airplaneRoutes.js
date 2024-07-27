@@ -7,5 +7,6 @@ router.post('/',AirPlaneMiddleware.validateCreateRequest ,  AirPlaneController.C
 router.get('/', AirPlaneController.getAllAirPlane);
 router.get('/:id', AirPlaneController.getAirPlane);
 router.delete('/:id', AirPlaneController.destroyAirPlane);
+router.patch('/:id', AirPlaneController.updateAirPlane)
 
 module.exports = router;
