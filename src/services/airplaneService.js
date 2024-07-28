@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const AirplaneRepository = require('../repositories/airplane-repository'); 
+const {AirplaneRepository} = require('../repositories'); 
 const { AppError } = require('../utils/error/index');
 
 const airplaneRepository = new AirplaneRepository();
@@ -63,12 +63,8 @@ async function updateAirPlane(id, data) {
         return updatedAirplane;
     } catch (error) {
         console.log('error', error);
-        if (error.name == 'SequelizeValidationError') {
-            let explanation = [];
-            error.errors.forEach((err) => {
-                explanation.push(err.message);
-            });
-            throw new AppError(explanation, StatusCodes.BAD_REQUEST);
+        if(error.statusCode === StatusCodes.NOT_FOUND){
+            throw new AppError('The request Airplanes not found', error.statusCode);
         }
         throw new AppError('Cannot update the Airplane', StatusCodes.INTERNAL_SERVER_ERROR);
     }

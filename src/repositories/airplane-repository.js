@@ -7,4 +7,4 @@ class AirplaneRepository extends CrudRepository {
     }
 }
 
-module.exports = AirplaneRepository;
+module.exports =  AirplaneRepository;
