@@ -24,6 +24,42 @@ async function CreateCity(req, res) {
     }   
 }
 
+async function DeleteCity(req, res){
+    try {
+        const city = await CityService.deleteCity(req.params.id);
+        successResponse.message = "Deleted the City"
+        successResponse.data = city;
+        return res
+                .status(StatusCodes.OK)
+                .json(successResponse);
+    } catch (error) {
+        errorResponse.error = error;
+        return res 
+            .status(error.statusCode)
+            .json(errorResponse);
+    }
+}
+
+async function UpdateCity(req, res) {
+    try {
+        const city = await CityService.updateCity(req.params.id, {
+            name: req.body.name,
+        })
+        successResponse.message = "Updated the City"
+        successResponse.data = city;
+        return res
+                .status(StatusCodes.OK)
+                .json(successResponse);
+    } catch (error) {
+        errorResponse.error = error;
+        return res 
+            .status(error.statusCode)
+            .json(errorResponse);
+    }
+}
 module.exports = {
-    CreateCity
+    CreateCity,
+    DeleteCity,
+    UpdateCity,
+    
 }
