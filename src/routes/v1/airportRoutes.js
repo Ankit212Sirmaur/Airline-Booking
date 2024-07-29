@@ -4,7 +4,7 @@ const {AirPortController} = require('../../controllers')
 const {AirPortMiddleware} = require('../../middlewares')
 
 router.post('/',AirPortMiddleware.validateCreateRequest, AirPortController.CreateAirPort);
-router.get('/', AirPortController.getAirPort);
+router.get('/:id', AirPortController.getAirPort);
 router.get('/all', AirPortController.getAllAirPort);
 router.delete('/', AirPortController.destroyAirPort);
 
