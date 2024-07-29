@@ -25,9 +25,9 @@ app.listen(ServerConfig.PORT, async () => {
     // const ans  = await MumbaiCity.removeAirport(central_mumbai_airport);
     // console.log(ans);
 
-    await City.destroy({
-        where: {
-            id:5
-        }
-    })
+    // await City.destroy({
+    //     where: {
+    //         id:5
+    //     }
+    // })
 });
