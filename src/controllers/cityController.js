@@ -39,6 +39,37 @@ async function DeleteCity(req, res){
             .json(errorResponse);
     }
 }
+async function getAllCity(req, res){
+    try {
+        const city = await CityService.getAllCity();
+        successResponse.message = "all the Cities"
+        successResponse.data = city;
+        return res
+                .status(StatusCodes.OK)
+                .json(successResponse);
+    } catch (error) {
+        errorResponse.error = error;
+        return res 
+            .status(error.statusCode)
+            .json(errorResponse);
+    }
+}
+async function getCity(req, res){
+    try {
+        const city = await CityService.getCity(req.params.id);
+        successResponse.message = "details of the city"
+        successResponse.data = city;
+        return res
+                .status(StatusCodes.OK)
+                .json(successResponse);
+    } catch (error) {
+        errorResponse.error = error;
+        return res 
+            .status(error.statusCode)
+            .json(errorResponse);
+    }
+}
+
 
 async function UpdateCity(req, res) {
     try {
@@ -61,5 +92,6 @@ module.exports = {
     CreateCity,
     DeleteCity,
     UpdateCity,
-    
+    getAllCity,
+    getCity,
 }

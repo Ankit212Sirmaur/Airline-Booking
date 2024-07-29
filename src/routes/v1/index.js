@@ -2,6 +2,7 @@ const express = require('express');
 const { InfoController } = require('../../controllers');
 const AirPlanRoutes = require('./airplaneRoutes')
 const CityRoutes = require('./cityRoutes')
+const AirPortRoutes = require('./airportRoutes')
 
 const router = express.Router();
 router.get('/info', InfoController.info);
@@ -9,5 +10,7 @@ router.get('/info', InfoController.info);
 router.use('/airplanes', AirPlanRoutes);
 
 router.use('/cities', CityRoutes);
+
+router.use('/airports', AirPortRoutes);
 
 module.exports = router;    

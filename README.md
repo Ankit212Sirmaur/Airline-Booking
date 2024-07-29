@@ -68,4 +68,20 @@ Lets take a look inside the `src` folder
    $ npx sequelize db:seed:undo:all
   ```
 
-  
+  -added a new city using the sequelize command
+  ```
+   npx sequelize model:generate --name City --attributes name:String
+    npx sequelize db:migrate
+  ```
+
+  ### adding database constraints directly through migration 
+
+
+  - create a new migration file
+```
+ npx sequelize migration:generate --name city-airport-association
+```
+ - then migrated it 
+ ```
+ npx sequelize db:migrate
+  ```

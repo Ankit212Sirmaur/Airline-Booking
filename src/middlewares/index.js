@@ -1,5 +1,6 @@
 
 module.exports = {
-    AirPlaneMiddleware: require('./validateCreateRequest'),
+    AirPlaneMiddleware: require('./airplaneMiddleware'),
     CityMiddleware: require('./cityMiddleware'),
+    AirPortMiddleware: require('./airportMiddleware'),
   };

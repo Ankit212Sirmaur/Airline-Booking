@@ -15,52 +15,52 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'airplaneId',
         onDelete: 'CASCADE'
       }),
-      this.belongsTo(models.AirPort, {
-        foreignKey: 'departureAirportId',
-        onDelete: 'CASCADE',
-      })
-      this.belongsTo(models.AirPort, {
+        this.belongsTo(models.Airport, {
+          foreignKey: 'departureAirportId',
+          onDelete: 'CASCADE',
+        })
+      this.belongsTo(models.Airport, {
         foreignKey: 'arrivalAirportId',
         onDelete: 'CASCADE',
       })
     }
   }
-  Flight.init({ 
+  Flight.init({
     flightNumber: {
       type: DataTypes.STRING,
-      allowNull:false,
+      allowNull: false,
     },
     airplaneId: {
       type: DataTypes.INTEGER,
-      allowNull:false,
+      allowNull: false,
     },
     departureAirportId: {
       type: DataTypes.STRING,
-      allowNull:false,
+      allowNull: false,
     },
     arrivalAirportId: {
-      allowNull:false,
+      allowNull: false,
       type: DataTypes.INTEGER,
     },
     arrivalTime: {
       type: DataTypes.DATE,
-      allowNull:false,
+      allowNull: false,
     },
-    departureTime:{
-      type:  DataTypes.DATE,
-      allowNull:false,
+    departureTime: {
+      type: DataTypes.DATE,
+      allowNull: false,
     },
-    price:{
+    price: {
       type: DataTypes.INTEGER,
-      allowNull:false,
+      allowNull: false,
     },
-    boardingGate:{
-      type:  DataTypes.STRING,
-      allowNull:false,
+    boardingGate: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
-    totalSeats:{
-      type:  DataTypes.INTEGER,
-      allowNull:false,
+    totalSeats: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
     }
   }, {
     sequelize,

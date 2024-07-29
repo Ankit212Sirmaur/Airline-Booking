@@ -31,6 +31,28 @@ async function deleteCity(data){
         throw new AppError('Cannot delete the city', StatusCodes.INTERNAL_SERVER_ERROR)
     }
 }
+async function getCity(id){
+    try {
+        const city = await cityRepository.get(id);
+        return city;
+    } catch (error) {
+        if(error.statusCode === StatusCodes.NOT_FOUND){
+            throw new AppError('The request city not found', error.statusCode);
+        }
+        throw new AppError('Cannot delete the city', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
+async function getAllCity(){
+    try {
+        const city = await cityRepository.getAll();
+        return city;
+    } catch (error) {
+        if(error.statusCode === StatusCodes.NOT_FOUND){
+            throw new AppError('The request city not found', error.statusCode);
+        }
+        throw new AppError('Cannot delete the city', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
 
 async function updateCity(id, data) {
     try {
@@ -48,4 +70,6 @@ module.exports = {
     createCity,
     deleteCity,
     updateCity,
+    getCity,
+    getAllCity,
 }
