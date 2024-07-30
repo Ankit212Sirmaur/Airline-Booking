@@ -58,7 +58,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    totalSeats: {
+    totalSeats: {  // consider here for now remaining seats in the flights, totalSeats will be abstracted from airplanes
       type: DataTypes.INTEGER,
       allowNull: false,
     }
