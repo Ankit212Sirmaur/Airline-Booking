@@ -1,5 +1,5 @@
 const { StatusCodes } = require('http-status-codes');
-const {FlightRepository} = require('../repositories'); 
+const { FlightRepository } = require('../repositories');
 const { AppError } = require('../utils/error/index');
 const { Op, fn, col, where } = require('sequelize');
 const moment = require('moment');
@@ -26,28 +26,28 @@ async function getAllFlights(query) {
     let customFilter = {};
     let sortFilter = [];
     let endTime = " 23:59:00"
-    if(query.trips) {
-       [departureAirportId, arrivalAirportId]  = query.trips.split("-");
-       customFilter.departureAirportId = departureAirportId;
-       customFilter.arrivalAirportId = arrivalAirportId;
+    if (query.trips) {
+        [departureAirportId, arrivalAirportId] = query.trips.split("-");
+        customFilter.departureAirportId = departureAirportId;
+        customFilter.arrivalAirportId = arrivalAirportId;
     }
-    if(query.price) {
+    if (query.price) {
         [minPrice, maxPrice] = query.price.split('-');
         customFilter.price = {
-            [Op.between] : [minPrice, ((maxPrice === undefined )? 20000: maxPrice)]
+            [Op.between]: [minPrice, ((maxPrice === undefined) ? 20000 : maxPrice)]
         }
     }
-    if(query.traveller){
+    if (query.traveller) {
         customFilter.totalSeats = {
-            [Op.gte] : query.traveller,
+            [Op.gte]: query.traveller,
         }
     }
-    if(query.tripDate) {
+    if (query.tripDate) {
         customFilter.departureTime = {
             [Op.between]: [query.tripDate, query.tripDate + endTime]
         }
     }
-    if(query.sort) {
+    if (query.sort) {
         const params = query.sort.split(',');
         const sortFilters = params.map((p) => p.split('_'));
         sortFilter = sortFilters;
@@ -61,7 +61,29 @@ async function getAllFlights(query) {
     }
 }
 
+async function getFlight(id) {
+    try {
+        const flight = await flightRepository.get(id);
+        return flight;
+    } catch (error) {
+        if(error.statusCode === StatusCodes.NOT_FOUND){
+            throw new AppError('The request Flight not found', error.statusCode);
+        }
+        throw new AppError('Cannot fetch the details of Flight', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
+
+async function updateFlight(flightId, data) {
+    try {
+        const response = await flightRepository.updateRemainingSeats(flightId, data.seats, data.dec);
+        return response;
+    } catch (error) {
+        throw new AppError('Cannot fetch the details of Flight', StatusCodes.INTERNAL_SERVER_ERROR)
+    }
+}
 module.exports = {
     createFlights,
     getAllFlights,
+    getFlight,
+    updateFlight
 }
