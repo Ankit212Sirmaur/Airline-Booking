@@ -26,7 +26,6 @@ class FlightRepository extends CrudRepository {
                     as: 'departureAirport',
                     on: {           // on the specific column
                         col1: Sequelize.where(Sequelize.col('Flight.departureAirportId'), "=", (Sequelize.col('departureAirport.code')))
-                        col1: Sequelize.where(Sequelize.col('Flight.departureAirportId'), "=", (Sequelize.col('departureAirport.code')))
                     },
                     include: {
                         model: City,
@@ -40,7 +39,6 @@ class FlightRepository extends CrudRepository {
                     required: true,
                     as: 'arrivalAirport',
                     on: {           // on the specific column
-                        col1: Sequelize.where(Sequelize.col('Flight.departureAirportId'), "=", (Sequelize.col('arrivalAirport.code')))
                         col1: Sequelize.where(Sequelize.col('Flight.departureAirportId'), "=", (Sequelize.col('arrivalAirport.code')))
                     },
                     include: {
