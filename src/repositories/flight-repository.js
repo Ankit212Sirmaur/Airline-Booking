@@ -10,6 +10,7 @@ class FlightRepository extends CrudRepository {
     }
 
     async getAllFlights(data, sort) {
+    async getAllFlights(data, sort) {
         const response = await Flight.findAll({
             where: data,
             order: sort,
@@ -25,8 +26,10 @@ class FlightRepository extends CrudRepository {
                     as: 'departureAirport',
                     on: {           // on the specific column
                         col1: Sequelize.where(Sequelize.col('Flight.departureAirportId'), "=", (Sequelize.col('departureAirport.code')))
+                        col1: Sequelize.where(Sequelize.col('Flight.departureAirportId'), "=", (Sequelize.col('departureAirport.code')))
                     },
                     include: {
+                        model: City,
                         model: City,
                         require: true,
                         as: 'cityDetail',
@@ -38,8 +41,10 @@ class FlightRepository extends CrudRepository {
                     as: 'arrivalAirport',
                     on: {           // on the specific column
                         col1: Sequelize.where(Sequelize.col('Flight.departureAirportId'), "=", (Sequelize.col('arrivalAirport.code')))
+                        col1: Sequelize.where(Sequelize.col('Flight.departureAirportId'), "=", (Sequelize.col('arrivalAirport.code')))
                     },
                     include: {
+                        model: City,
                         model: City,
                         require: true,
                         as: 'cityDetail',

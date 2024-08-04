@@ -28,9 +28,11 @@ async function CreateFlights(req, res) {
     } catch (error) {
         errorResponse.error = error;
         return res
+        return res
             .status(error.statusCode)
             .json(errorResponse);
     }
+
 
 }
 
@@ -45,11 +47,48 @@ async function getAllFlights(req, res) {
     } catch (error) {
         errorResponse.error = error;
         return res
+        return res
             .status(error.statusCode)
             .json(errorResponse);
     }
 }
 
+async function getFlights(req, res) {
+    try {
+        const response = await FlightService.getFlight(req.params.id);
+        successResponse.data = response;
+        return res
+            .status(StatusCodes.CREATED)
+            .json(successResponse);
+    } catch (error) {
+        errorResponse.error = error;
+        return res
+            .status(error.statusCode)
+            .json(errorResponse);
+    }
+}
+
+async function updateFlight(req, res) {
+    console.log('req.params', req.params.flightId);
+    
+    try {
+        const response = await FlightService.updateFlight(req.params.flightId, {
+            seats: req.body.seats,
+            dec: req.body.dec,
+        })
+        successResponse.data = response;
+        successResponse.message = 'updated flight with remaining capacity'
+        return res
+            .status(StatusCodes.CREATED)
+            .json(successResponse);
+    } catch (error) {
+        errorResponse.error = error;
+        return res
+            .status(error.statusCode)
+            .json(errorResponse);
+    }
+
+}
 async function getFlights(req, res) {
     try {
         const response = await FlightService.getFlight(req.params.id);
@@ -87,6 +126,8 @@ async function updateFlight(req, res) {
 module.exports = {
     CreateFlights,
     getAllFlights,
+    getFlights,
+    updateFlight,
     getFlights,
     updateFlight,
 }
