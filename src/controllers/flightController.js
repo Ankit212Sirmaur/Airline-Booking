@@ -66,8 +66,6 @@ async function getFlights(req, res) {
 }
 
 async function updateFlight(req, res) {
-    console.log('req.params', req.params.flightId);
-    
     try {
         const response = await FlightService.updateFlight(req.params.flightId, {
             seats: req.body.seats,

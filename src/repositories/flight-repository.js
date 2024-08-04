@@ -1,7 +1,8 @@
 const CrudRepository = require('./crud-repository');
 const { Flight, Airplane, Airport, City } = require('../models')
-const { Op, Sequelize, col } = require('sequelize');
-const { on } = require('nodemon');
+// const { Sequelize} = require('sequelize');
+const db = require('../models')
+const {addRowLockOnFlights} = require('./rawQueries')
 
 class FlightRepository extends CrudRepository {
     constructor() {
@@ -49,14 +50,13 @@ class FlightRepository extends CrudRepository {
         return response;
     }
 
-    async updateRemainingSeats(flightId, seats, dec = true) {
-        console.log(flightId, seats, dec, 'print all');
-        
+    async updateRemainingSeats(flightId, seats, dec=true) {
+        await db.sequelize.query(addRowLockOnFlights(flightId));
         const flight = await Flight.findByPk(flightId);
-        if (parseInt(dec)) {
-            await flight.decrement('totalSeats', { by: seats, returning: true });
+        if (+dec) {
+            await flight.decrement('totalSeats', { by: seats });
         } else {
-            await flight.increment('totalSeats', { by: seats, returning: true });
+            await flight.increment('totalSeats', { by: seats });
         }
         await flight.reload();
         return flight;

@@ -1,9 +1,6 @@
 const express = require('express');
 const { ServerConfig } = require('./config');
 const apiRoutes = require('./routes');
-const { log } = require('winston');
-const { where } = require('sequelize');
-
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
